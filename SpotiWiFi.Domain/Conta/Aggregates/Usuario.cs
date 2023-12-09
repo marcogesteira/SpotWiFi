@@ -18,5 +18,11 @@ namespace SpotiWiFi.Domain.Conta.Aggregates
         public Plano Assinatura { get; set; }
         public List<Playlist> Playlists { get; set; } = new List<Playlist>();
 
+        public Usuario() { }
+
+        public void AdicionarPlaylist(Playlist playlist)
+        {
+            Playlists.Add(playlist);
+        }
     }
 }

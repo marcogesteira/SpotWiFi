@@ -15,6 +15,9 @@ namespace SpotiWiFi.Domain.Conta.Aggregates
 
         public Playlist() { }
 
-
+        public void AdicionarMusica (Musica musica)
+        {
+            Musicas.Add(musica);
+        }
     }
 }
