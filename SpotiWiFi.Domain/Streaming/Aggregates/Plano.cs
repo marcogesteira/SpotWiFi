@@ -1,4 +1,4 @@
-﻿using SpotiWiFi.Domain.Streaming.ValueObjects;
+﻿using SpotiWiFi.Domain.Core.ValueObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
