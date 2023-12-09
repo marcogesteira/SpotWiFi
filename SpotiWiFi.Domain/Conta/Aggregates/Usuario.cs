@@ -19,7 +19,7 @@ namespace SpotiWiFi.Domain.Conta.Aggregates
         public List<Cartao> Cartoes { get; set; } = new List<Cartao>();
         public CPF CPF { get; set; }
         public EnderecoCobranca EnderecoCobranca { get; set; }
-        public List<Assinatura> Assinaturas { get; set; }
+        public List<Assinatura> Assinaturas { get; set; } = new List<Assinatura>();
         public List<Playlist> Playlists { get; set; } = new List<Playlist>();
 
         public Usuario() { }
