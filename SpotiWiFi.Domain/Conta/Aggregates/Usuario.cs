@@ -16,14 +16,18 @@ namespace SpotiWiFi.Domain.Conta.Aggregates
         public String Email { get; set; }
         public String Senha { get; set; }
         public DateTime DtNascimento { get; set; }
-        public List<Cartao> Cartoes { get; set; } = new List<Cartao>();
         public CPF CPF { get; set; }
         public EnderecoCobranca EnderecoCobranca { get; set; }
+        public List<Cartao> Cartoes { get; set; } = new List<Cartao>();
         public List<Assinatura> Assinaturas { get; set; } = new List<Assinatura>();
         public List<Playlist> Playlists { get; set; } = new List<Playlist>();
 
         public Usuario() { }
 
+        public void AdicionarCartao(Cartao cartao)
+        {
+            Cartoes.Add(cartao);
+        }
         public void AdicionarPlaylist(Playlist playlist)
         {
             Playlists.Add(playlist);

@@ -11,7 +11,10 @@ namespace SpotiWiFi.Domain.Conta.Aggregates
     {
         public Guid Id { get; set; }
         public String Nome { get; set; }
+        public Boolean Publica { get; set; }
+        public Usuario Usuario { get; set; }
         public List<Musica> Musicas { get; set; } = new List<Musica>();
+        public DateTime DtCriacao { get; set; }
 
         public Playlist() { }
 
