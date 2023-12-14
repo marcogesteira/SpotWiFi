@@ -35,6 +35,14 @@ namespace SpotiWiFi.Domain.Transacao.Aggregates
 
             //Verifica regras antifraude
             this.ValidarTransacao(transacao);
+
+            //Cria número de autorização
+            transacao.Id = Guid.NewGuid();
+
+            //Diminui o limite com o valor da transação
+            this.Limite = this.Limite - transacao.Valor;
+
+            this.Transacoes.Add(transacao);
         }
 
         private void ValidarTransacao(Transacao transacao)
