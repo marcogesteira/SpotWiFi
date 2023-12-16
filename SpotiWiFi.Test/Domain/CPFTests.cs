@@ -14,21 +14,24 @@ namespace SpotiWiFi.Test.Domain
         [Fact]
         public void CpfValido()
         {
-            CPF cpf = new CPF("12137346737");
-            Assert.True(cpf.Numero == "12137346737");
+            CPF cpf = new CPF("93018630068");
+            Assert.True(cpf.Numero == "93018630068");
         }
         //[Fact]
         //public void PrimeiroDigitoInvalido()
         //{
-        //    CPF cpf = new CPF("12137346747");
-        //    Assert.Throws<SystemException> () => cpf = new CPF("12137346747");
+        //    CPF cpf = new CPF("93018630038");
+        //    Assert.Throws<SystemException> () => cpf = new CPF("93018630038");
         //}
         //[Fact]
         //public void SegundoDigitoInvalido()
         //{
-        //    CPF cpf = new CPF("12137346738");
+        //    CPF cpf = new CPF("93018630065");
         //    Assert.Throws<System.Exception>(
         //        () => 'CPF Inválido');
         //}
+
+        //Assert.Throws<CPFException>
+        //(() => usuario.Criar(nome, cpf, plano, cartao));
     }
 }
