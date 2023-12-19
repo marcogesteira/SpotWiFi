@@ -17,21 +17,34 @@ namespace SpotiWiFi.Test.Domain
             CPF cpf = new CPF("93018630068");
             Assert.True(cpf.Numero == "93018630068");
         }
-        //[Fact]
-        //public void PrimeiroDigitoInvalido()
-        //{
-        //    CPF cpf = new CPF("93018630038");
-        //    Assert.Throws<SystemException> () => cpf = new CPF("93018630038");
-        //}
-        //[Fact]
-        //public void SegundoDigitoInvalido()
-        //{
-        //    CPF cpf = new CPF("93018630065");
-        //    Assert.Throws<System.Exception>(
-        //        () => 'CPF Inválido');
-        //}
+        [Fact]
+        public void ValidaCPF_PrimeiroDigitoInvalido_DeveRetornarException()
+        {
+            //Arrays
+            var cpfComPrimeiroNumeroInvalido = "93018630038";
 
-        //Assert.Throws<CPFException>
-        //(() => usuario.Criar(nome, cpf, plano, cartao));
+            //Configs
+
+            //Tests
+
+            //Asserts
+            CPF cpf = new CPF();
+            Assert.Throws<System.Exception>(() => cpf.ValidaCPF(cpfComPrimeiroNumeroInvalido));
+        }
+
+        [Fact]
+        public void ValidaCPF_SegundoDigitoInvalido_DeveRetornarException()
+        {
+            //Arrays
+            var cpfComSegundoNumeroInvalido = "93018630065";
+
+            //Configs
+
+            //Tests
+
+            //Asserts
+            CPF cpf = new CPF();
+            Assert.Throws<System.Exception>(() => cpf.ValidaCPF(cpfComSegundoNumeroInvalido));
+        }
     }
 }

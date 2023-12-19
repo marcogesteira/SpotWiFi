@@ -13,13 +13,17 @@ namespace SpotiWiFi.Domain.Conta.ValueObjects
 
         public CPF(string numero)
         {
-            if (this.ValidaCPF(numero))
-                throw new Exception("CPF Inválido");
+            this.ValidaCPF(numero);
 
             Numero = numero;
         }
 
-        private bool ValidaCPF(string numero)
+        public CPF()
+        {
+            
+        }
+
+        public void ValidaCPF(string numero)
         {
             string[] numeros = new string[9];
             string[] digitos = new string[2];
@@ -70,11 +74,10 @@ namespace SpotiWiFi.Domain.Conta.ValueObjects
             }
 
             //Validação dos dígitos
-            if (primeiroDigito == int.Parse(digitos[0]) && segundoDigito == int.Parse(digitos[1]))
+            if (primeiroDigito != int.Parse(digitos[0]) || segundoDigito != int.Parse(digitos[1]))
             {
-                return false;
+                throw new Exception("CPF Inválido");
             }
-            else { return true; }
         }
     }
 }
