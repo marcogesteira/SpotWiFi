@@ -39,7 +39,19 @@ namespace SpotiWiFi.Domain.Conta.ValueObjects
             {
                 digitos[i] = numero.Substring((i + 9), 1);
             }
+            
+            //Cálculo dos dígitos
+            int primeiroDigito = this.CalculaPrimeiroDigito(numeros);
+            int segundoDigito = this.CalculaSegundoDigito(numeros, primeiroDigito);
 
+            //Validação dos dígitos
+            if (primeiroDigito != int.Parse(digitos[0]) || segundoDigito != int.Parse(digitos[1]))
+            {
+                throw new Exception("CPF Inválido");
+            }
+        }
+        private int CalculaPrimeiroDigito(string[] numeros)
+        {
             //Somatório dos 9 números
             int soma = 0;
             int fator = 10;
@@ -55,10 +67,13 @@ namespace SpotiWiFi.Domain.Conta.ValueObjects
             {
                 primeiroDigito = 0;
             }
-
+            return primeiroDigito;
+        }
+        private int CalculaSegundoDigito(string[] numeros, int primeiroDigito)
+        {
             //Somatório dos 10 números
-            soma = 0;
-            fator = 11;
+            int soma = 0;
+            int fator = 11;
             for (int i = 0; i < 9; i++)
             {
                 soma += (fator * int.Parse(numeros[i]));
@@ -66,18 +81,13 @@ namespace SpotiWiFi.Domain.Conta.ValueObjects
             }
             soma += primeiroDigito * 2;
             //Cálculo do 2º dígito verificador
-            resto = soma % 11;
+            int resto = soma % 11;
             int segundoDigito = 11 - resto;
             if (segundoDigito >= 10)
             {
                 segundoDigito = 0;
             }
-
-            //Validação dos dígitos
-            if (primeiroDigito != int.Parse(digitos[0]) || segundoDigito != int.Parse(digitos[1]))
-            {
-                throw new Exception("CPF Inválido");
-            }
+            return segundoDigito;
         }
     }
 }

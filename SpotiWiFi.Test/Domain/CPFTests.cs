@@ -12,7 +12,7 @@ namespace SpotiWiFi.Test.Domain
     public class CPFTests
     {
         [Fact]
-        public void CpfValido()
+        public void DeveCriarCPFComSucesso()
         {
             CPF cpf = new CPF("93018630068");
             Assert.True(cpf.Numero == "93018630068");
@@ -20,12 +20,10 @@ namespace SpotiWiFi.Test.Domain
         [Fact]
         public void ValidaCPF_PrimeiroDigitoInvalido_DeveRetornarException()
         {
-            //Arrays
+            //Arrange
             var cpfComPrimeiroNumeroInvalido = "93018630038";
 
-            //Configs
-
-            //Tests
+            //Act
 
             //Asserts
             CPF cpf = new CPF();
@@ -35,12 +33,10 @@ namespace SpotiWiFi.Test.Domain
         [Fact]
         public void ValidaCPF_SegundoDigitoInvalido_DeveRetornarException()
         {
-            //Arrays
+            //Arrange
             var cpfComSegundoNumeroInvalido = "93018630065";
 
-            //Configs
-
-            //Tests
+            //Act
 
             //Asserts
             CPF cpf = new CPF();
