@@ -14,7 +14,7 @@ namespace SpotiWiFi.Domain.Streaming.Aggregates
 
         public void AdicionarMusica(Musica musica)
         {
-            Musica.Add(musica);
+            this.Musica.Add(musica);
         }
         public void AdicionarMusica(List<Musica> musica)
         {

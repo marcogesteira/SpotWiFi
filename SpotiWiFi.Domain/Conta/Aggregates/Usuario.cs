@@ -9,12 +9,13 @@ using SpotiWiFi.Domain.Transacao.Aggregates;
 using SpotiWiFi.Domain.Transacao.ValueObject;
 using SpotiWiFi.Domain.Core.ValueObject;
 using System.Data;
+using System.Security.Cryptography;
 
 namespace SpotiWiFi.Domain.Conta.Aggregates
 {
     public class Usuario
     {
-        
+        private const string NOME_PLAYLIST = "Favoritas";
 
         public Guid Id { get; set; }
         public String Nome { get; set; }
@@ -26,21 +27,29 @@ namespace SpotiWiFi.Domain.Conta.Aggregates
         public List<Cartao> Cartoes { get; set; } = new List<Cartao>();
         public List<Assinatura> Assinaturas { get; set; } = new List<Assinatura>();
         public List<Playlist> Playlists { get; set; } = new List<Playlist>();
+        public List<Notificacao.Notificacao> Notificacoes { get; set; } = new List<Notificacao.Notificacao>();
 
         public Usuario() { }
 
-        public void CriarConta (string nome, string email, string senha,DateTime dtNascimento, CPF cpf, EnderecoCobranca enderecoCobranca, Plano plano, Cartao cartao)
+        public void CriarConta(string nome, string email, string senha, DateTime dtNascimento, CPF cpf, EnderecoCobranca enderecoCobranca, Plano plano, Cartao cartao)
         {
             this.Nome = nome;
             this.Email = email;
-            this.EnderecoCobranca = enderecoCobranca;
-            
-            //Todo: Criptografar a senha
-            this.Senha = senha;
             this.DtNascimento = dtNascimento;
+            this.CPF = cpf;
+            this.EnderecoCobranca = enderecoCobranca;
+
+            //Criptografar a senha
+            this.Senha = CriptografarSenha(senha);
 
             //Assinar um plano
             this.AssinarPlano(plano, cartao);
+
+            //Adicionar cartão na conta
+            this.AdicionarCartao(cartao);
+
+            //Criar a playlist padrão
+            this.AdicionarPlaylist(nome: NOME_PLAYLIST, publica: false);
         }
 
         private void AssinarPlano(Plano plano, Cartao cartao)
@@ -49,20 +58,46 @@ namespace SpotiWiFi.Domain.Conta.Aggregates
             cartao.CriarTransacao(new Merchant() { Nome = plano.Nome }, new Monetario(plano.Valor), plano.Descricao);
 
             //Caso tenha alguma assinatura ativa, desativa ela
-            //if (this.Assinaturas.Count > 0 && this.Assinaturas.Any(x => x.Ativo) 
-            //{
-            
-            //}
+            DesativarAssinatura();
 
+            //Adicionar assinatura
+            this.Assinaturas.Add(new Assinatura()
+            {
+                Ativo = true,
+                Plano = plano,
+                DtAtivacao = DateTime.Now
+            });
         }
 
-        public void AdicionarCartao(Cartao cartao)
+        private void DesativarAssinatura()
+        {
+            if (this.Assinaturas.Count > 0 && this.Assinaturas.Any(x => x.Ativo))
+            {
+                var planoAtivo = this.Assinaturas.FirstOrDefault(x => x.Ativo);
+                planoAtivo.Ativo = false;
+            }
+        }
+
+        private void AdicionarCartao(Cartao cartao)
         {
             this.Cartoes.Add(cartao);
         }
-        public void AdicionarPlaylist(Playlist playlist)
+        public void AdicionarPlaylist(string nome, bool publica = true)
         {
-            Playlists.Add(playlist);
+            this.Playlists.Add(new Playlist()
+            {
+                Nome = nome,
+                Publica = publica,
+                DtCriacao = DateTime.Now,
+                Usuario = this
+            });
+        }
+        private String CriptografarSenha(string senha)
+        {
+            SHA256 criptoProvider = SHA256.Create();
+            byte[] btexto = Encoding.UTF8.GetBytes(senha);
+            var criptoResultado = criptoProvider.ComputeHash(btexto);
+            return Convert.ToHexString(criptoResultado);
         }
     }
 }

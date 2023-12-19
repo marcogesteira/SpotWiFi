@@ -1,4 +1,5 @@
-﻿using SpotiWiFi.Domain.Streaming.ValueObjects;
+﻿using SpotiWiFi.Domain.Conta.Aggregates;
+using SpotiWiFi.Domain.Streaming.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace SpotiWiFi.Domain.Streaming.Aggregates
         public Guid Id { get; set; }
         public String Nome { get; set; }
         public Duracao Duracao { get; set; }
+
+        public List<Playlist> Playlists { get; set; } = new List<Playlist>();
 
     }
 }
