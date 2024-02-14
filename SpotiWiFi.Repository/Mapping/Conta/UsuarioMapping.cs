@@ -31,14 +31,7 @@ namespace SpotiWiFi.Repository.Mapping.Conta
                 c.Property(x => x.Numero).IsRequired().HasMaxLength(50);
             });
 
-            builder.OwnsOne<EnderecoCobranca>(d => d.EnderecoCobranca, c =>
-            {
-                c.Property(x => x.Endereco).IsRequired().HasMaxLength(1024);
-                c.Property(x => x.CEP).IsRequired().HasMaxLength(50);
-                c.Property(x => x.Bairro).IsRequired().HasMaxLength(150);
-                c.Property(x => x.Cidade).IsRequired().HasMaxLength(150);
-                c.Property(x => x.Pais).IsRequired().HasMaxLength(150);
-            });
+            builder.HasOne<EnderecoCobranca>(x => x.EnderecoCobranca);
 
             builder.HasMany(x => x.Cartoes).WithOne();
             builder.HasMany(x => x.Assinaturas).WithOne();

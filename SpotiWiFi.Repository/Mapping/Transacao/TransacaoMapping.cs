@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SpotiWiFi.Domain.Core.ValueObject;
 using SpotiWiFi.Domain.Streaming.Aggregates;
 using SpotiWiFi.Domain.Streaming.ValueObjects;
 using SpotiWiFi.Domain.Transacao.Aggregates;
@@ -27,6 +28,11 @@ namespace SpotiWiFi.Repository.Mapping.Transacao
             builder.OwnsOne<Merchant>(d => d.Merchant, c =>
             {
                 c.Property(x => x.Nome).HasColumnName("MerchantNome").IsRequired();
+            });
+
+            builder.OwnsOne<Monetario>(d => d.Valor, c =>
+            {
+                c.Property(x => x.Valor).HasColumnName("ValorTransacao").IsRequired();
             });
         }
     }
