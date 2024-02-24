@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotiWiFi.Test", "SpotiWiFi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotiWiFi.Repository", "SpotiWiFi.Repository\SpotiWiFi.Repository.csproj", "{E6BDCFAA-7F65-43F9-916C-31A04BE2410B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotiWiFi.Api", "SpotiWiFi.Api\SpotiWiFi.Api.csproj", "{525FDA09-0978-476A-ACE8-B38BAD0851F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotiWiFi.Api", "SpotiWiFi.Api\SpotiWiFi.Api.csproj", "{525FDA09-0978-476A-ACE8-B38BAD0851F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotiWiFi.Application", "SpotiWiFi.Application\SpotiWiFi.Application.csproj", "{AC196A97-7960-4620-87F1-A570774D15D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{525FDA09-0978-476A-ACE8-B38BAD0851F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{525FDA09-0978-476A-ACE8-B38BAD0851F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{525FDA09-0978-476A-ACE8-B38BAD0851F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC196A97-7960-4620-87F1-A570774D15D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC196A97-7960-4620-87F1-A570774D15D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC196A97-7960-4620-87F1-A570774D15D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC196A97-7960-4620-87F1-A570774D15D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
