@@ -14,15 +14,18 @@ namespace SpotiWiFi.Application.Conta.Profile
         public UsuarioProfile()
         {
             CreateMap<UsuarioDto, Usuario>()
-                .ForMember(x => x.CPF.Numero, m => m.MapFrom(f => f.CPF));
-            CreateMap<Usuario, UsuarioDto>();
+                .ForMember(x => x.CPF.Numero, m => m.MapFrom(f => f.CPF))
+                .ReverseMap();
+
 
             CreateMap<CartaoDto, Cartao>()
-                .ForMember(x => x.Limite.Valor, m => m.MapFrom(f => f.Limite));
-            CreateMap<Cartao, CartaoDto>();
+                .ForMember(x => x.Limite.Valor, m => m.MapFrom(f => f.Limite))
+                .ReverseMap();
+            
 
-            CreateMap<EnderecoCobrancaDto, EnderecoCobranca>();
-            CreateMap<EnderecoCobranca, EnderecoCobrancaDto>();
+            CreateMap<EnderecoCobrancaDto, EnderecoCobranca>()
+                .ReverseMap();
+            
         }
     }
 }
