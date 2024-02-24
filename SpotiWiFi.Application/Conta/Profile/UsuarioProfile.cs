@@ -1,4 +1,4 @@
-﻿using SpotiWiFi.Application.Conta.Request;
+﻿using SpotiWiFi.Application.Conta.Dto;
 using SpotiWiFi.Domain.Conta.Aggregates;
 using SpotiWiFi.Domain.Transacao.Aggregates;
 using System;
