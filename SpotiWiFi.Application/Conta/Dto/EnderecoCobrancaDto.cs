@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpotiWiFi.Application.Conta.Request
+namespace SpotiWiFi.Application.Conta.Dto
 {
     public class EnderecoCobrancaDto
     {

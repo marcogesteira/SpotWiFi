@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SpotiWiFi.Application\SpotiWiFi.Application.csproj" />
     <ProjectReference Include="..\SpotiWiFi.Repository\SpotiWiFi.Repository.csproj" />
   </ItemGroup>
 
