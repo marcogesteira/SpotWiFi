@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace SpotiWiFi.Application.Conta.Profile
 {
-    internal class UsuarioProfile : AutoMapper.Profile
+    public class UsuarioProfile : AutoMapper.Profile
     {
         public UsuarioProfile()
         {
             CreateMap<UsuarioDto, Usuario>()
-                .ForMember(x => x.CPF.Numero, m => m.MapFrom(f => f.CPF))
+                .ForPath(x => x.CPF.Numero, m => m.MapFrom(f => f.CPF))
                 .ReverseMap();
 
             CreateMap<CartaoDto, Cartao>()
-                .ForMember(x => x.Limite.Valor, m => m.MapFrom(f => f.Limite))
+                .ForPath(x => x.Limite.Valor, m => m.MapFrom(f => f.Limite))
                 .ReverseMap();
             
             CreateMap<EnderecoCobrancaDto, EnderecoCobranca>()
