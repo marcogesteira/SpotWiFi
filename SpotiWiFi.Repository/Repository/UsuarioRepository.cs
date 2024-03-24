@@ -7,29 +7,13 @@ using System.Threading.Tasks;
 
 namespace SpotiWiFi.Repository.Repository
 {
-    public class UsuarioRepository
+    public class UsuarioRepository : RepositoryBase<Usuario>
     {
         public SpotiWiFiContext Context { get; set; }
 
-        public UsuarioRepository(SpotiWiFiContext context) 
+        public UsuarioRepository(SpotiWiFiContext context) : base(context)
         {
             Context = context;
-        }
-
-        public void Salvar(Usuario usuario)
-        {
-            Context.Usuarios.Add(usuario);
-            Context.SaveChanges();
-        }
-
-        public Usuario GetUsuarioByEmail(string email)
-        {
-            return Context.Usuarios.FirstOrDefault(x => x.Email == email);
-        }
-
-        public bool ExisteUsuario(string email)
-        {
-            return this.GetUsuarioByEmail(email) is not null;
         }
     }
 }

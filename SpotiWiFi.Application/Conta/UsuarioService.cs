@@ -28,10 +28,10 @@ namespace SpotiWiFi.Application.Conta
 
         public UsuarioDto Criar(UsuarioDto dto)
         {
-            if (this.UsuarioRepository.ExisteUsuario(dto.Email))
+            if (this.UsuarioRepository.Exists(x => x.Email == dto.Email))
                 throw new Exception("Usuário já existente na base");
             
-            Plano plano = this.PlanoRepository.GetPlanoById(dto.PlanoId);
+            Plano plano = this.PlanoRepository.GetById(dto.PlanoId);
 
             if (plano == null) 
                 throw new Exception("Plano não encontrado");
@@ -44,7 +44,7 @@ namespace SpotiWiFi.Application.Conta
 
             usuario.CriarConta(dto.Nome, dto.Email, dto.Senha, dto.DtNascimento, cpf, enderecoCobranca, plano, cartao);
 
-            this.UsuarioRepository.Salvar(usuario);
+            this.UsuarioRepository.Save(usuario);
 
             var result = this.Mapper.Map<UsuarioDto>(usuario);
 
