@@ -17,12 +17,10 @@ namespace SpotiWiFi.Application.Conta.Profile
                 .ForMember(x => x.CPF.Numero, m => m.MapFrom(f => f.CPF))
                 .ReverseMap();
 
-
             CreateMap<CartaoDto, Cartao>()
                 .ForMember(x => x.Limite.Valor, m => m.MapFrom(f => f.Limite))
                 .ReverseMap();
             
-
             CreateMap<EnderecoCobrancaDto, EnderecoCobranca>()
                 .ReverseMap();
             
