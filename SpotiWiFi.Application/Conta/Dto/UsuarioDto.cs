@@ -17,7 +17,6 @@ namespace SpotiWiFi.Application.Conta.Dto
         [EmailAddress]
         public String Email { get; set; }
         [Required]
-        [JsonIgnore()]
         public String Senha { get; set; }
         [Required]
         public DateTime DtNascimento { get; set; }
