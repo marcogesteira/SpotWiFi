@@ -13,8 +13,8 @@ namespace SpotiWiFi.Domain.Notificacao
         public DateTime DtNotificacao { get; set; }
         public String Titulo { get; set; }
         public String Mensagem { get; set; }
-        public Usuario UsuarioDestino { get; set; }
-        public Usuario? UsuarioRemetente { get; set; }
+        public virtual Usuario UsuarioDestino { get; set; }
+        public virtual Usuario? UsuarioRemetente { get; set; }
         public TipoNotificacao TipoNotificacao { get; set; }
 
         public static Notificacao Criar(string titulo, string mensagem, TipoNotificacao tipoNotificacao, Usuario destino, Usuario remetente = null)

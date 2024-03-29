@@ -1,4 +1,5 @@
-﻿using SpotiWiFi.Domain.Conta.Aggregates;
+﻿using Microsoft.EntityFrameworkCore;
+using SpotiWiFi.Domain.Conta.Aggregates;
 using System;
 using System.Collections.Generic;
 using System.Linq;

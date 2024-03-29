@@ -16,7 +16,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<SpotiWiFiContext>(c =>
 {
-    c.UseSqlServer(builder.Configuration.GetConnectionString("SpotiWiFiConnection"));
+    c.UseLazyLoadingProxies()
+    .UseSqlServer(builder.Configuration.GetConnectionString("SpotiWiFiConnection"));
 });
 
 builder.Services.AddAutoMapper(typeof(UsuarioProfile).Assembly);

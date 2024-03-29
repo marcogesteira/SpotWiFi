@@ -22,12 +22,12 @@ namespace SpotiWiFi.Domain.Conta.Aggregates
         public String Email { get; set; }
         public String Senha { get; set; }
         public DateTime DtNascimento { get; set; }
-        public CPF CPF { get; set; }
-        public EnderecoCobranca EnderecoCobranca { get; set; }
-        public List<Cartao> Cartoes { get; set; } = new List<Cartao>();
-        public List<Assinatura> Assinaturas { get; set; } = new List<Assinatura>();
-        public List<Playlist> Playlists { get; set; } = new List<Playlist>();
-        public List<Notificacao.Notificacao> Notificacoes { get; set; } = new List<Notificacao.Notificacao>();
+        public virtual CPF CPF { get; set; }
+        public virtual EnderecoCobranca EnderecoCobranca { get; set; }
+        public virtual IList<Cartao> Cartoes { get; set; } = new List<Cartao>();
+        public virtual IList<Assinatura> Assinaturas { get; set; } = new List<Assinatura>();
+        public virtual IList<Playlist> Playlists { get; set; } = new List<Playlist>();
+        public virtual IList<Notificacao.Notificacao> Notificacoes { get; set; } = new List<Notificacao.Notificacao>();
 
         public Usuario() { }
 

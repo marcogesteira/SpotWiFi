@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace SpotiWiFi.Application.Conta.Dto
@@ -16,6 +17,7 @@ namespace SpotiWiFi.Application.Conta.Dto
         [EmailAddress]
         public String Email { get; set; }
         [Required]
+        [JsonIgnore()]
         public String Senha { get; set; }
         [Required]
         public DateTime DtNascimento { get; set; }
