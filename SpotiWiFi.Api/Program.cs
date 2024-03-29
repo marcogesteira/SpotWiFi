@@ -3,6 +3,7 @@ using SpotiWiFi.Repository;
 using SpotiWiFi.Application.Conta.Profile;
 using SpotiWiFi.Repository.Repository;
 using SpotiWiFi.Application.Conta;
+using SpotiWiFi.Application.Streaming;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,9 +26,11 @@ builder.Services.AddAutoMapper(typeof(UsuarioProfile).Assembly);
 //Repositories
 builder.Services.AddScoped<UsuarioRepository>();
 builder.Services.AddScoped<PlanoRepository>();
+builder.Services.AddScoped<BandaRepository>();
 
 //Services
 builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<BandaService>();
 
 
 var app = builder.Build();

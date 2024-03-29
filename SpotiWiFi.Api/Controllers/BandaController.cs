@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SpotiWiFi.Application.Streaming;
+using SpotiWiFi.Application.Streaming.Dto;
 using SpotiWiFi.Domain.Streaming.Aggregates;
 using SpotiWiFi.Repository;
 
@@ -9,17 +11,17 @@ namespace SpotiWiFi.Api.Controllers
     [ApiController]
     public class BandaController : ControllerBase
     {
-        private SpotiWiFiContext Context { get; set; }
+        private BandaService _bandaService;
 
-        public BandaController(SpotiWiFiContext context)
+        public BandaController(BandaService bandaService)
         {
-            Context = context;
+            _bandaService = bandaService;
         }
 
         [HttpGet]
         public IActionResult GetBandas()
         {
-            var result = this.Context.Bandas.ToList();
+            var result = _bandaService.Obter();
 
             return Ok(result);
         }
@@ -27,24 +29,47 @@ namespace SpotiWiFi.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetBandas(Guid id)
         {
-            var result = this.Context.Bandas.FirstOrDefault(x => x.Id == id);
-            
+            var result = this._bandaService.Obter(id);
+
             if (result == null)
             {
                 return NotFound();
             }
-            
+
             return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult SaveBandas([FromBody] Banda banda)
+        public IActionResult Criar([FromBody] BandaDto dto)
         {
-            this.Context.Bandas.Add(banda);
-            this.Context.SaveChanges();
+            if (ModelState is { IsValid: false })
+                return BadRequest();
 
-            return Created($"/banda/{banda.Id}", banda);
+            var result = this._bandaService.Criar(dto);
+            
+            return Created($"/banda/{result.Id}", result);
         }
-        
+
+        [HttpPost("{id}/albums")]
+        public IActionResult AssociarAlbum(AlbumDto dto)
+        {
+            if (ModelState is { IsValid : false })
+                return BadRequest();
+
+            var result = this._bandaService.AssociarAlbum(dto);
+
+            return Created($"/banda/{result.BandaId}/albums/{result.Id}", result);
+        }
+
+        [HttpGet("{idBanda}/albums/{id}")]
+        public IActionResult ObterAlbum(Guid idBanda, Guid id)
+        {
+            var result = this._bandaService.ObterAlbum(idBanda, id);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
     }
 }
