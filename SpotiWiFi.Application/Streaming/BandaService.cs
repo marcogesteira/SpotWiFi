@@ -64,7 +64,7 @@ namespace SpotiWiFi.Application.Streaming
             return result;
         }
 
-        public AlbumDto ObterAlbum(Guid idBanda, Guid id)
+        public AlbumDto ObterAlbumPorId(Guid idBanda, Guid id)
         {
             var banda = this.BandaRepository.GetById(idBanda);
 
@@ -75,6 +75,23 @@ namespace SpotiWiFi.Application.Streaming
 
             var result = AlbumParaAlbumDto(album);
             result.BandaId = idBanda;
+
+            return result;
+        }
+
+        public List<AlbumDto> ObterAlbum(Guid idBanda)
+        {
+            var banda = this.BandaRepository.GetById(idBanda);
+
+            if (banda == null)
+                throw new Exception("Banda não encontrada");
+
+            var result = new List<AlbumDto>();
+
+            foreach (var item in banda.Albums)
+            {
+                result.Add(AlbumParaAlbumDto(item));
+            }
 
             return result;
         }
