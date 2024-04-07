@@ -2,6 +2,7 @@
 using SpotiWiFi.Application.Conta.Dto;
 using SpotiWiFi.Domain.Conta.Aggregates;
 using SpotiWiFi.Domain.Conta.ValueObjects;
+using SpotiWiFi.Domain.Core.Extension;
 using SpotiWiFi.Domain.Streaming.Aggregates;
 using SpotiWiFi.Domain.Transacao.Aggregates;
 using SpotiWiFi.Repository.Repository;
@@ -54,6 +55,13 @@ namespace SpotiWiFi.Application.Conta
         public UsuarioDto Obter(Guid id)
         {
             var usuario = this.UsuarioRepository.GetById(id);
+            var result = this.Mapper.Map<UsuarioDto>(usuario);
+            return result;
+        }
+
+        public UsuarioDto Autenticar(string email, string senha)
+        {
+            var usuario = this.UsuarioRepository.Find(x => x.Email == email && x.Senha == senha.HashSHA256()).FirstOrDefault();
             var result = this.Mapper.Map<UsuarioDto>(usuario);
             return result;
         }

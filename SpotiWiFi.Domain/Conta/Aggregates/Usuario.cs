@@ -10,6 +10,7 @@ using SpotiWiFi.Domain.Transacao.ValueObject;
 using SpotiWiFi.Domain.Core.ValueObject;
 using System.Data;
 using System.Security.Cryptography;
+using SpotiWiFi.Domain.Core.Extension;
 
 namespace SpotiWiFi.Domain.Conta.Aggregates
 {
@@ -40,7 +41,7 @@ namespace SpotiWiFi.Domain.Conta.Aggregates
             this.EnderecoCobranca = enderecoCobranca;
 
             //Criptografar a senha
-            this.Senha = CriptografarSenha(senha);
+            this.Senha = this.CriptografarSenha(senha);
 
             //Assinar um plano
             this.AssinarPlano(plano, cartao);
@@ -94,10 +95,7 @@ namespace SpotiWiFi.Domain.Conta.Aggregates
         }
         private String CriptografarSenha(string senha)
         {
-            SHA256 criptoProvider = SHA256.Create();
-            byte[] btexto = Encoding.UTF8.GetBytes(senha);
-            var criptoResultado = criptoProvider.ComputeHash(btexto);
-            return Convert.ToHexString(criptoResultado);
+            return senha.HashSHA256();
         }
     }
 }

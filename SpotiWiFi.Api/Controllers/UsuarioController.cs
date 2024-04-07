@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SpotiWiFi.Api.Controllers.Request;
 using SpotiWiFi.Application.Conta;
 using SpotiWiFi.Application.Conta.Dto;
 
@@ -34,6 +35,22 @@ namespace SpotiWiFi.Api.Controllers
             if(result == null)
                 return NotFound();
             
+            return Ok(result);
+        }
+
+        [HttpPost("/login")]
+        public IActionResult Login([FromBody] LoginRequest login)
+        {
+            if (ModelState.IsValid == false)
+                return BadRequest();
+            
+            var result = this._usuarioService.Autenticar(login.Email, login.Senha);
+
+            if (result == null)
+                return BadRequest(new
+                {
+                    Error = "Email ou senha inválidos"
+                });
             return Ok(result);
         }
     }
