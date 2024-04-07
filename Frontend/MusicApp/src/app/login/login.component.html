@@ -1,0 +1,30 @@
+<div class="example-container">
+  @if (errorMessage) {
+    <mat-error>{{errorMessage}}</mat-error>
+  }
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput
+           placeholder="Digite o e-mail..."
+           [formControl]="email"
+           required>
+    @if (email.invalid) {
+      <mat-error>Email inválido</mat-error>
+    }
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <mat-label>Senha</mat-label>
+    <input matInput
+           type="password"
+           placeholder="Digite a senha..."
+           [formControl]="senha"
+           required>
+    @if (senha.invalid) {
+      <mat-error>Senha inválida</mat-error>
+    }
+  </mat-form-field>
+<div class="example-button-row">
+  <button mat-raised-button color="primary" (click)="login();">Login</button>
+</div>
+</div>

@@ -38,7 +38,7 @@ namespace SpotiWiFi.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest login)
         {
             if (ModelState.IsValid == false)
