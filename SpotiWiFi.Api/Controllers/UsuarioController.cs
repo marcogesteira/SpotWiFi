@@ -20,7 +20,7 @@ namespace SpotiWiFi.Api.Controllers
         [HttpPost]
         public IActionResult Criar(UsuarioDto dto)
         {
-            if (ModelState is { IsValid: false})
+            if (ModelState is { IsValid: false })
                 return BadRequest();
 
             var result = this._usuarioService.Criar(dto);
@@ -32,9 +32,9 @@ namespace SpotiWiFi.Api.Controllers
         {
             var result = this._usuarioService.Obter(id);
 
-            if(result == null)
+            if (result == null)
                 return NotFound();
-            
+
             return Ok(result);
         }
 
@@ -43,7 +43,7 @@ namespace SpotiWiFi.Api.Controllers
         {
             if (ModelState.IsValid == false)
                 return BadRequest();
-            
+
             var result = this._usuarioService.Autenticar(login.Email, login.Senha);
 
             if (result == null)
@@ -51,6 +51,26 @@ namespace SpotiWiFi.Api.Controllers
                 {
                     Error = "Email ou senha inválidos"
                 });
+            return Ok(result);
+        }
+        [HttpGet("playlist/{id}")]
+        public IActionResult ObterPlaylist(Guid id)
+        {
+            var result = this._usuarioService.ObterPlaylist(id);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+        [HttpPost("playlist")]
+        public IActionResult AdicionarMusicaNaPlaylist([FromBody] string nome, Guid idPlaylist)
+        {
+            if (ModelState is { IsValid: false })
+                return BadRequest();
+
+            var result = this._usuarioService.AdicionarMusicaNaPlaylist(nome, idPlaylist);
+
             return Ok(result);
         }
     }

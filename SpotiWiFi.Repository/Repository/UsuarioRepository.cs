@@ -16,5 +16,16 @@ namespace SpotiWiFi.Repository.Repository
         {
             Context = context;
         }
+
+        public Playlist GetPlaylistById(Guid id)
+        {
+            return Context.Playlists.Find(id);
+        }
+
+        public void UpdatePlaylist(Playlist playlist) 
+        {
+            this.Context.Playlists.Update(playlist);
+            this.Context.SaveChanges();
+        }
     }
 }

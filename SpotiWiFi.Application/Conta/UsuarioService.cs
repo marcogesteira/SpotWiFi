@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SpotiWiFi.Application.Conta.Dto;
+using SpotiWiFi.Application.Streaming.Dto;
 using SpotiWiFi.Domain.Conta.Aggregates;
 using SpotiWiFi.Domain.Conta.ValueObjects;
 using SpotiWiFi.Domain.Core.Extension;
@@ -19,12 +20,14 @@ namespace SpotiWiFi.Application.Conta
         private IMapper Mapper { get; set; }
         private UsuarioRepository UsuarioRepository { get; set; }
         private PlanoRepository PlanoRepository { get; set; }
+        private BandaRepository BandaRepository { get; set; }
 
-        public UsuarioService(IMapper mapper, UsuarioRepository usuarioRepository, PlanoRepository planoRepository)
+        public UsuarioService(IMapper mapper, UsuarioRepository usuarioRepository, PlanoRepository planoRepository, BandaRepository bandaRepository)
         {
             Mapper = mapper;
             UsuarioRepository = usuarioRepository;
             PlanoRepository = planoRepository;
+            BandaRepository = bandaRepository;
         }
 
         public UsuarioDto Criar(UsuarioDto dto)
@@ -64,6 +67,57 @@ namespace SpotiWiFi.Application.Conta
             var usuario = this.UsuarioRepository.Find(x => x.Email == email && x.Senha == senha.HashSHA256()).FirstOrDefault();
             var result = this.Mapper.Map<UsuarioDto>(usuario);
             return result;
+        }
+
+        public PlaylistDto ObterPlaylist(Guid id)
+        {
+            var playlist = this.UsuarioRepository.GetPlaylistById(id);
+            var result = this.PlaylistParaPlaylistDto(playlist);
+            return result;
+
+        }
+
+        public PlaylistDto AdicionarMusicaNaPlaylist(string nomeMusica, Guid idPlaylist)
+        {
+            var musica = this.BandaRepository.GetMusicaByName(nomeMusica);
+            if (musica == null)
+                throw new Exception("Música não encontrada");
+            var favorita = musica.FirstOrDefault();
+
+            var playlist = this.UsuarioRepository.GetPlaylistById(idPlaylist);
+            if (playlist == null)
+                throw new Exception("Playlist não encontrada");
+
+            playlist.AdicionarMusica(favorita);
+            
+            this.UsuarioRepository.UpdatePlaylist(playlist);
+
+            var result = this.PlaylistParaPlaylistDto(playlist);
+
+            return result;
+ 
+        }
+
+        private PlaylistDto PlaylistParaPlaylistDto(Playlist playlist)
+        {
+            PlaylistDto dto = new PlaylistDto();
+            dto.Id = playlist.Id;
+            dto.Nome = playlist.Nome;
+            dto.DtCriacao = playlist.DtCriacao;
+
+            foreach (var item in playlist.Musicas)
+            {
+                var musicaDto = new MusicaDto()
+                {
+                    Id = item.Id,
+                    Duracao = item.Duracao.Valor,
+                    Nome = item.Nome
+                };
+
+                dto.Musicas.Add(musicaDto);
+            }
+
+            return dto;
         }
     }
 }
