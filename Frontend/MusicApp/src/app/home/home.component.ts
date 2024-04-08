@@ -34,4 +34,7 @@ export class HomeComponent implements OnInit {
   public goToDetail(item: Banda) {
     this.router.navigate(['detail', item.id]);
   }
+  public goToBuscar() {
+    this.router.navigate(['buscar-musica']);
+  }
 }
