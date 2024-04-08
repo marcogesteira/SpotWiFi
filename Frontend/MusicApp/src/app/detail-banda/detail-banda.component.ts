@@ -30,7 +30,6 @@ export class DetailBandaComponent implements OnInit {
     });
     this.bandaService.getAlbunsBanda(this.idBanda).subscribe((response) => {
       this.albuns = response;
-      console.log();
     });
   }
 }

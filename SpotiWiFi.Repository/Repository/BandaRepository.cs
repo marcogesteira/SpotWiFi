@@ -11,6 +11,13 @@ namespace SpotiWiFi.Repository.Repository
     {
         public BandaRepository(SpotiWiFiContext context) : base(context)
         {
+
+
+        }
+
+        public IEnumerable<Musica> GetMusicaByName(string name)
+        {
+            return this.Context.Musicas.Where(m => m.Nome.Contains(name)).ToList();
         }
     }
 }

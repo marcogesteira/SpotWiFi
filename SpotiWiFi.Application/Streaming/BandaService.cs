@@ -96,6 +96,20 @@ namespace SpotiWiFi.Application.Streaming
             return result;
         }
 
+        public List<MusicaDto> BuscarMusica(string nomeMusica)
+        {
+            var musicas = this.BandaRepository.GetMusicaByName(nomeMusica);
+
+            if (musicas == null)
+                throw new Exception("Música não encontrada");
+
+            var result = new List<MusicaDto>();
+            foreach (var item in musicas)
+                result.Add(MusicaParaMusicaDto(item));
+
+            return (List<MusicaDto>)result;
+        }
+
         private Album AlbumDtoParaAlbum(AlbumDto dto)
         {
             Album album = new Album()
@@ -133,6 +147,17 @@ namespace SpotiWiFi.Application.Streaming
 
                 dto.Musicas.Add(musicaDto);
             }
+            return dto;
+        }
+
+        private MusicaDto MusicaParaMusicaDto(Musica musica)
+        {
+            MusicaDto dto = new MusicaDto();
+
+            dto.Id = musica.Id;
+            dto.Nome = musica.Nome;
+            dto.Duracao = musica.Duracao.Valor;
+
             return dto;
         }
 

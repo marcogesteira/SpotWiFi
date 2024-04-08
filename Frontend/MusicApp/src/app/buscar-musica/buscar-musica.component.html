@@ -1,0 +1,27 @@
+<div class="example-container">
+  <mat-form-field>
+    <mat-label>Nome da Música</mat-label>
+    <input matInput
+           placeholder="Insira o nome da música..."
+           [formControl]="nomeMusica"
+           required>
+    @if (!musicas) {
+      <mat-error>{{errorMessage}}</mat-error>
+    }
+  </mat-form-field>
+</div>
+<div class="example-button-row">
+  <button mat-raised-button color="primary" (click)="buscar();">Buscar</button>
+</div>
+<br />
+
+<mat-selection-list #musica>
+
+  @for (musica of musicas; track musica) {
+    <mat-list-option style="background-color: black;">{{musica.nome}}</mat-list-option>
+  }
+</mat-selection-list>
+<p>
+  Músicas favoritadas: {{musica.selectedOptions.selected.length}}
+</p>
+
