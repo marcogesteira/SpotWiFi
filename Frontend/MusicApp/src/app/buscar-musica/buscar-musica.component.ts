@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { BandaService } from '../services/banda.service';
 import { Musica } from '../model/album';
 import { MatListModule } from '@angular/material/list';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-buscar-musica',
@@ -30,7 +31,7 @@ export class BuscarMusicaComponent {
   errorMessage = '';
   musicas!: Musica[];
 
-  constructor(private bandaService: BandaService) {}
+  constructor(private bandaService: BandaService, private usuarioService: UsuarioService) {}
 
   public buscar() {
     if (this.nomeMusica.invalid) {
@@ -51,4 +52,8 @@ export class BuscarMusicaComponent {
       },
     });
   }
+
+  // public favoritarMusica() {
+
+  // }
 }

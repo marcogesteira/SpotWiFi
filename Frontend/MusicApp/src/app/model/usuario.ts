@@ -4,3 +4,8 @@ export interface Usuario {
   email?: string;
   dtNascimento?: string;
 }
+
+export interface Playlist {
+  id?: string;
+  nomeMusica?: string;
+}
