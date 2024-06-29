@@ -9,7 +9,7 @@ namespace SpotiWiFi.Repository.Repository
 {
     public class UsuarioAdminRepository : RepositoryBase<UsuarioAdmin>
     {
-        public UsuarioAdminRepository(SpotiWiFiContext context) : base(context)
+        public UsuarioAdminRepository(SpotiWiFiAdminContext context) : base(context)
         {
         }
     }

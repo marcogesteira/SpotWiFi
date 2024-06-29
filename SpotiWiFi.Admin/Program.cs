@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using SpotiWiFi.Application.Admin;
+using SpotiWiFi.Application.Admin.Profile;
 using SpotiWiFi.Repository;
+using SpotiWiFi.Repository.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,11 @@ builder.Services.AddDbContext<SpotiWiFiAdminContext>(c =>
     c.UseLazyLoadingProxies()
     .UseSqlServer(builder.Configuration.GetConnectionString("SpotiWiFiAdminConnection"));
 });
+
+builder.Services.AddAutoMapper(typeof(UsuarioAdminProfile).Assembly);
+
+builder.Services.AddScoped<UsuarioAdminRepository>();
+builder.Services.AddScoped<UsuarioAdminService>();
 
 var app = builder.Build();
 

@@ -10,9 +10,9 @@ namespace SpotiWiFi.Repository
 {
     public abstract class RepositoryBase<T> where T : class, new()
     {
-        protected SpotiWiFiContext Context { get; set; }
+        protected DbContext Context { get; set; }
 
-        public RepositoryBase(SpotiWiFiContext context)
+        public RepositoryBase(DbContext context)
         {
             Context = context;
         }

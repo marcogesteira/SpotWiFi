@@ -9,10 +9,11 @@ namespace SpotiWiFi.Repository.Repository
 {
     public class BandaRepository : RepositoryBase<Banda>
     {
+        public SpotiWiFiContext Context { get; set; }
+
         public BandaRepository(SpotiWiFiContext context) : base(context)
         {
-
-
+            Context = context;
         }
 
         public IEnumerable<Musica> GetMusicaByName(string name)
