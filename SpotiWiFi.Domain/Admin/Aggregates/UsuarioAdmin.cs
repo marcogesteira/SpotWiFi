@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpotiWiFi.Domain.Core.Extension;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,10 @@ namespace SpotiWiFi.Domain.Admin.Aggregates
         public string Email { get; set; }
         public string Senha { get; set; }
         public Perfil Perfil { get; set; }
+
+        public void CriptografarSenha()
+        {
+            this.Senha = this.Senha.HashSHA256();
+        }
     }
 }

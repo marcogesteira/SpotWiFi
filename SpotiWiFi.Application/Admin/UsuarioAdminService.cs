@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SpotiWiFi.Application.Admin.Dto;
+using SpotiWiFi.Domain.Admin.Aggregates;
 using SpotiWiFi.Repository.Repository;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,13 @@ namespace SpotiWiFi.Application.Admin
             var result = this.Repository.GetAll();
 
             return this.mapper.Map<IEnumerable<UsuarioAdminDto>>(result);
+        }
+
+        public void Salvar(UsuarioAdminDto dto)
+        {
+            var usuario = this.mapper.Map<UsuarioAdmin>(dto);
+            usuario.CriptografarSenha();
+            this.Repository.Save(usuario);
         }
     }
 }
