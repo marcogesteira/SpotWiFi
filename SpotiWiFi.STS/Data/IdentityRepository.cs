@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace SpotiWiFi.STS.Data
 {
-    public class IdentityRepository
+    public class IdentityRepository : IIdentityRepository
     {
         private readonly string connectionString;
 
@@ -16,10 +16,10 @@ namespace SpotiWiFi.STS.Data
 
         public async Task<Usuario> FindByIdAsync(Guid id)
         {
-            using(var connection = new SqlConnection(this.connectionString))
+            using (var connection = new SqlConnection(this.connectionString))
             {
-                var user = await connection.QueryFirstAsync<Usuario>(IdentityQuery.FindById(), new 
-                { 
+                var user = await connection.QueryFirstOrDefaultAsync<Usuario>(IdentityQuery.FindById(), new
+                {
                     id = id
                 });
                 return user;
@@ -30,8 +30,8 @@ namespace SpotiWiFi.STS.Data
         {
             using (var connection = new SqlConnection(this.connectionString))
             {
-                var user = await connection.QueryFirstAsync<Usuario>(IdentityQuery.FindByEmailAndPassword(), new 
-                { 
+                var user = await connection.QueryFirstOrDefaultAsync<Usuario>(IdentityQuery.FindByEmailAndPassword(), new
+                {
                     email = email,
                     senha = password
                 });

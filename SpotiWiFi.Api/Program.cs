@@ -4,6 +4,7 @@ using SpotiWiFi.Application.Conta.Profile;
 using SpotiWiFi.Repository.Repository;
 using SpotiWiFi.Application.Conta;
 using SpotiWiFi.Application.Streaming;
+using IdentityServer4.AccessTokenValidation;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,23 @@ builder.Services.AddDbContext<SpotiWiFiContext>(c =>
 });
 
 builder.Services.AddAutoMapper(typeof(UsuarioProfile).Assembly);
+
+builder.Services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options => 
+                {
+                    options.Authority = "https://localhost:7280";
+                    options.ApiName = "SpotiWiFi-api";
+                    options.ApiSecret = "SpotiWiFiSecret";
+                    options.RequireHttpsMetadata = true;
+                });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("spotiwifi-role", p =>
+    {
+        p.RequireClaim("role", "spotiwifi-user");
+    });
+});
 
 //Repositories
 builder.Services.AddScoped<UsuarioRepository>();
@@ -44,6 +62,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

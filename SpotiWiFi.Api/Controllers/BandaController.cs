@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SpotiWiFi.Application.Streaming;
 using SpotiWiFi.Application.Streaming.Dto;
@@ -9,6 +10,7 @@ namespace SpotiWiFi.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "spotiwifi-user")]
     public class BandaController : ControllerBase
     {
         private BandaService _bandaService;
@@ -19,6 +21,7 @@ namespace SpotiWiFi.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetBandas()
         {
             var result = _bandaService.Obter();
