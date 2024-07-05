@@ -12,5 +12,10 @@ namespace SpotiWiFi.Repository.Repository
         public UsuarioAdminRepository(SpotiWiFiAdminContext context) : base(context)
         {
         }
+
+        public UsuarioAdmin GetUsuarioAdminByEmailAndPassword(string email, string password)
+        {
+            return this.Find(x => x.Email == email && x.Senha == password).FirstOrDefault();
+        }
     }
 }

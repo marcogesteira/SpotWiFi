@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpotiWiFi.Application.Admin;
 using SpotiWiFi.Application.Admin.Dto;
 
 namespace SpotiWiFi.Admin.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private UsuarioAdminService _usuarioAdminService;
@@ -18,13 +20,14 @@ namespace SpotiWiFi.Admin.Controllers
             var result = this._usuarioAdminService.ObterTodos();
             return View(result);
         }
-
+        [AllowAnonymous]
         public IActionResult Criar()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Salvar(UsuarioAdminDto dto)
         {
             if (ModelState.IsValid == false) 
