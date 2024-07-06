@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SpotiWiFi.Application.Admin;
 using SpotiWiFi.Application.Admin.Profile;
+using SpotiWiFi.Application.Streaming;
 using SpotiWiFi.Repository;
 using SpotiWiFi.Repository.Repository;
 
@@ -16,10 +17,18 @@ builder.Services.AddDbContext<SpotiWiFiAdminContext>(c =>
     .UseSqlServer(builder.Configuration.GetConnectionString("SpotiWiFiAdminConnection"));
 });
 
+builder.Services.AddDbContext<SpotiWiFiContext>(c =>
+{
+    c.UseLazyLoadingProxies()
+    .UseSqlServer(builder.Configuration.GetConnectionString("SpotiWiFiConnection"));
+});
+
 builder.Services.AddAutoMapper(typeof(UsuarioAdminProfile).Assembly);
 
 builder.Services.AddScoped<UsuarioAdminRepository>();
 builder.Services.AddScoped<UsuarioAdminService>();
+builder.Services.AddScoped<BandaRepository>();
+builder.Services.AddScoped<BandaService>();
 
 builder.Services.AddAuthentication(options =>
 {
