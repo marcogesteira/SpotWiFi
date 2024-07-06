@@ -21,7 +21,6 @@ namespace SpotiWiFi.Api.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult GetBandas()
         {
             var result = _bandaService.Obter();

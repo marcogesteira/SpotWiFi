@@ -11,6 +11,7 @@ import {
 import { UsuarioService } from '../services/usuario.service';
 import { Usuario } from '../model/usuario';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +31,7 @@ export class LoginComponent {
   senha = new FormControl('', [Validators.required]);
   errorMessage = '';
   usuario!: Usuario;
+  token!: any;
 
   constructor(private usuarioService: UsuarioService, private router: Router){
 
@@ -40,13 +42,14 @@ export class LoginComponent {
       return;
     }
 
-    let emailValue = this.email.getRawValue() as String;
-    let senhaValue = this.senha.getRawValue() as String;
+    let emailValue = this.email.getRawValue() as string;
+    let senhaValue = this.senha.getRawValue() as string;
 
     this.usuarioService.autenticar(emailValue, senhaValue).subscribe(
       {next: (response) => {
-        this.usuario = response;
-        sessionStorage.setItem("user", JSON.stringify(this.usuario.id));
+        this.token = jwtDecode(response.access_token);
+        sessionStorage.setItem("user_session", JSON.stringify(this.token));
+        sessionStorage.setItem('access_token', response.access_token);
         this.router.navigate(["/home"]);
       },
       error: (e) => {

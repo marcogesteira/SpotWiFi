@@ -5,6 +5,8 @@ using SpotiWiFi.Repository.Repository;
 using SpotiWiFi.Application.Conta;
 using SpotiWiFi.Application.Streaming;
 using IdentityServer4.AccessTokenValidation;
+using System.Runtime.CompilerServices;
+using Microsoft.OpenApi.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +16,31 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme()
+    {
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Name = "Authorization",
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+        Description = "Adicione o token JWT para fazer as requisições nas APIs",
+        Scheme = "Bearer"
+    });
+    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<String>()
+        }
+    });
+});
 
 builder.Services.AddDbContext<SpotiWiFiContext>(c =>
 {
@@ -25,7 +51,7 @@ builder.Services.AddDbContext<SpotiWiFiContext>(c =>
 builder.Services.AddAutoMapper(typeof(UsuarioProfile).Assembly);
 
 builder.Services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                .AddIdentityServerAuthentication(options => 
+                .AddIdentityServerAuthentication(options =>
                 {
                     options.Authority = "https://localhost:7280";
                     options.ApiName = "SpotiWiFi-api";
