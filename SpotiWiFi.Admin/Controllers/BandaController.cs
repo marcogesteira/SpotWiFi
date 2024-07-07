@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FastReport.Export.PdfSimple;
+using Microsoft.AspNetCore.Mvc;
 using SpotiWiFi.Application.Streaming;
 using SpotiWiFi.Application.Streaming.Dto;
 
@@ -7,10 +8,12 @@ namespace SpotiWiFi.Admin.Controllers
     public class BandaController : Controller
     {
         private BandaService _bandaService;
+        private IWebHostEnvironment _webHostEnv;
 
-        public BandaController(BandaService bandaService)
+        public BandaController(BandaService bandaService, IWebHostEnvironment webHostEnv)
         {
             _bandaService = bandaService;
+            _webHostEnv = webHostEnv;
         }
 
         public IActionResult Index()
@@ -79,6 +82,44 @@ namespace SpotiWiFi.Admin.Controllers
             this._bandaService.AssociarMusica(id, idAlbum, dto);
 
             return RedirectToAction("Index");
+        }
+
+        [Route("CreateReport")]
+        public IActionResult CreateReport()
+        {
+
+            var caminhoReport = Path.Combine(_webHostEnv.WebRootPath, @"reports\ReportMvc.frx");
+            var reportFile = caminhoReport;
+
+            var freport = new FastReport.Report();
+
+            var listaBandas = _bandaService.Obter();
+
+            freport.Dictionary.RegisterBusinessObject(listaBandas, "listaBandas", 10, true);
+            freport.Report.Save(reportFile);
+
+            return Ok($"Relatório gerado: {caminhoReport}");
+        }
+
+        [Route("BandaReport")]
+        public IActionResult BandaReport()
+        {
+            var caminhoReport = Path.Combine(_webHostEnv.WebRootPath, @"reports\ReportMvc.frx");
+            var reportFile = caminhoReport;
+
+            var freport = new FastReport.Report();
+
+            var listaBandas = _bandaService.Obter();
+
+            freport.Report.Load(reportFile);
+            freport.Dictionary.RegisterBusinessObject(listaBandas, "listaBandas", 10, true);
+            freport.Prepare();
+            var pdfExport = new PDFSimpleExport();
+
+            using MemoryStream ms = new MemoryStream();
+            pdfExport.Export(freport, ms);
+            ms.Flush();
+            return File(ms.ToArray(), "application/pdf");
         }
     }
 }

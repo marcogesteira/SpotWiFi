@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="07/07/2024 18:40:21" ReportInfo.Modified="07/07/2024 19:10:24" ReportInfo.CreatorVersion="2024.2.0.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="listaBandas" ReferenceName="listaBandas" DataType="System.Int32" Enabled="true">
+      <Column Name="Id" DataType="System.Guid"/>
+      <Column Name="Nome" DataType="System.String"/>
+      <Column Name="Descricao" DataType="System.String"/>
+      <Column Name="Backdrop" DataType="System.String"/>
+    </BusinessObjectDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <TextObject Name="Text9" Left="9.45" Top="9.45" Width="94.5" Height="18.9" Text="[Date]" Font="Arial, 10pt"/>
+      <TextObject Name="Text11" Left="217.35" Top="9.45" Width="217.35" Height="18.9" Text="Relatório de Bandas" Font="Arial, 16pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="718.2" Height="28.35">
+      <TextObject Name="Text2" Left="9.45" Width="94.5" Height="18.9" Text="Id" Font="Arial, 10pt"/>
+      <TextObject Name="Text4" Left="151.2" Width="94.5" Height="18.9" Text="Nome" Font="Arial, 10pt"/>
+      <TextObject Name="Text6" Left="264.6" Width="94.5" Height="18.9" Text="Descricao" Font="Arial, 10pt"/>
+      <TextObject Name="Text8" Left="567" Width="94.5" Height="18.9" Text="Backdrop" Font="Arial, 10pt"/>
+      <LineObject Name="Line1" Left="132.3" Height="28.35"/>
+      <LineObject Name="Line2" Left="255.15" Height="28.35"/>
+      <LineObject Name="Line3" Left="548.1" Height="28.35"/>
+      <LineObject Name="Line7" Top="28.35" Width="718.2"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="74.15" Width="718.2" Height="75.6" DataSource="listaBandas">
+      <TextObject Name="Text1" Left="9.45" Top="9.45" Width="94.5" Height="18.9" Text="[listaBandas.Id]" Font="Arial, 10pt"/>
+      <TextObject Name="Text3" Left="151.2" Top="9.45" Width="94.5" Height="18.9" Text="[listaBandas.Nome]" Font="Arial, 10pt"/>
+      <TextObject Name="Text5" Left="264.6" Top="9.45" Width="245.7" Height="18.9" Text="[listaBandas.Descricao]" Font="Arial, 10pt"/>
+      <TextObject Name="Text7" Left="567" Top="9.45" Width="94.5" Height="18.9" Text="[listaBandas.Backdrop]" Font="Arial, 10pt"/>
+      <LineObject Name="Line4" Left="132.3" Height="75.6"/>
+      <LineObject Name="Line5" Left="255.15" Height="75.6"/>
+      <LineObject Name="Line6" Left="548.1" Height="75.6"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="153.75" Width="718.2" Height="18.9">
+      <TextObject Name="Text10" Left="661.5" Width="94.5" Height="18.9" Text="[Page#]" Font="Arial, 10pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

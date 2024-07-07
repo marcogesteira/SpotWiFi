@@ -8,6 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FastReport.OpenSource" Version="2024.2.1" />
+    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2024.2.1" />
+    <PackageReference Include="FastReport.OpenSource.Web" Version="2024.2.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.10.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
       <PrivateAssets>all</PrivateAssets>
@@ -21,6 +25,10 @@
     <ProjectReference Include="..\SpotiWiFi.Application\SpotiWiFi.Application.csproj" />
     <ProjectReference Include="..\SpotiWiFi.Domain\SpotiWiFi.Domain.csproj" />
     <ProjectReference Include="..\SpotiWiFi.Repository\SpotiWiFi.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\reports\" />
   </ItemGroup>
 
 </Project>
