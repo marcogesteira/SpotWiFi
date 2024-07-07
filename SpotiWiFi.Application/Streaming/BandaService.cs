@@ -53,7 +53,10 @@ namespace SpotiWiFi.Application.Streaming
             if (banda == null)
                 throw new Exception("Banda não encontrada");
 
-            var novoAlbum = this.AlbumDtoParaAlbum(dto); 
+            var novoAlbum = new Album
+            {
+                Nome = dto.Nome
+            };
 
             banda.AdicionarAlbum(novoAlbum);
 

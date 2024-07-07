@@ -39,9 +39,28 @@ namespace SpotiWiFi.Admin.Controllers
         
         public IActionResult Albuns(Guid id)
         {
-            TempData["Param"] = id;
+            ViewBag.Id = id;
             var result = this._bandaService.ObterAlbum(id);
             return View(result);
+        }
+
+        public IActionResult CriarAlbum(Guid id)
+        {
+            ViewBag.Id = id;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SalvarAlbum(Guid id, AlbumDto dto)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return View("CriarAlbum");
+            }
+            dto.BandaId = id;
+            this._bandaService.AssociarAlbum(dto);
+
+            return RedirectToAction("Index");
         }
     }
 }

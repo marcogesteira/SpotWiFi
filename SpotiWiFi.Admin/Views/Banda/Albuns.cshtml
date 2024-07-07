@@ -1,25 +1,39 @@
 ﻿@model IEnumerable<SpotiWiFi.Application.Streaming.Dto.AlbumDto>
 
+@{
+    Guid id = ViewBag.Id;
+}
 <div>
-    <a class="btn btn-primary" role="button" asp-controller="Banda" asp-action="Criar Album">Criar Album</a>
+    <a href="@Url.Action("CriarAlbum","Banda",new { id = id.ToString() })" class="btn btn-primary">Criar Album</a>
 </div>
 
-<div>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <td>Id</td>
-                <td>Nome</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.Nome</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="accordion" id="accordionPanelsStayOpenExample" style="margin-top: 10px">
+    <div class="accordion-item">
+        @foreach (var item in Model)
+        {
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                    @item.Nome
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    <strong>
+                        @foreach (var musica in item.Musicas)
+                        {
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            @musica.Nome
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+                    </strong>
+                </div>
+            </div>
+        }
+    </div>
 </div>
