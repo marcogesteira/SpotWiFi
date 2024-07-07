@@ -20,6 +20,9 @@ namespace SpotiWiFi.Application.Streaming.Dto
     public class MusicaDto
     {
         public Guid Id { get; set; }
+        [Required]
+        public Guid AlbumId { get; set; }
+        [Required]
         public String Nome { get; set; }
         public int Duracao { get; set; }
     }

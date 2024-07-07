@@ -62,5 +62,23 @@ namespace SpotiWiFi.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult CriarMusica(Guid id, Guid idAlbum)
+        {
+            ViewBag.Id = id;
+            ViewBag.AlbumId = idAlbum;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SalvarMusica(Guid id, Guid idAlbum, MusicaDto dto)
+        {
+            dto.Id = new Guid();
+            dto.AlbumId = idAlbum;
+
+            this._bandaService.AssociarMusica(id, idAlbum, dto);
+
+            return RedirectToAction("Index");
+        }
     }
 }

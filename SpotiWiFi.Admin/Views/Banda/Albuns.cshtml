@@ -7,6 +7,7 @@
     <a href="@Url.Action("CriarAlbum","Banda",new { id = id.ToString() })" class="btn btn-primary">Criar Album</a>
 </div>
 
+
 <div class="accordion" id="accordionPanelsStayOpenExample" style="margin-top: 10px">
     <div class="accordion-item">
         @foreach (var item in Model)
@@ -15,6 +16,9 @@
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                     @item.Nome
                 </button>
+                <div>
+                    <a href="@Url.Action("CriarMusica","Banda",new { id = id.ToString(), idAlbum = item.Id.ToString() })" class="btn btn-primary">Criar Música</a>
+                </div>
             </h2>
             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
                 <div class="accordion-body">

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +20,11 @@ namespace SpotiWiFi.Repository.Repository
         public IEnumerable<Musica> GetMusicaByName(string name)
         {
             return this.Context.Musicas.Where(m => m.Nome.Contains(name)).ToList();
+        }
+
+        public Album GetAlbumById(Guid id)
+        {
+            return this.Context.Set<Album>().Find(id);
         }
     }
 }
