@@ -1,10 +1,12 @@
 ﻿using FastReport.Export.PdfSimple;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpotiWiFi.Application.Streaming;
 using SpotiWiFi.Application.Streaming.Dto;
 
 namespace SpotiWiFi.Admin.Controllers
 {
+    [Authorize]
     public class BandaController : Controller
     {
         private BandaService _bandaService;
