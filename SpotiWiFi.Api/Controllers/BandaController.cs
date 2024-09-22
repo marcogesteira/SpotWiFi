@@ -10,7 +10,7 @@ namespace SpotiWiFi.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "spotiwifi-user")]
+    //[Authorize(Roles = "spotiwifi-user")]
     public class BandaController : ControllerBase
     {
         private BandaService _bandaService;
