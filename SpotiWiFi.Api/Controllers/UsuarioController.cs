@@ -9,7 +9,7 @@ namespace SpotiWiFi.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "spotiwifi-user")]
+    //[Authorize(Roles = "spotiwifi-user")]
     public class UsuarioController : ControllerBase
     {
         private UsuarioService _usuarioService;
