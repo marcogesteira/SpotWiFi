@@ -27,6 +27,8 @@ env:
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - SpotiWiFi.Api/**
   workflow_dispatch:
 
 permissions:
