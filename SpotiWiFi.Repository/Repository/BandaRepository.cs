@@ -1,4 +1,5 @@
-﻿using SpotiWiFi.Domain.Streaming.Aggregates;
+﻿using Microsoft.Extensions.Configuration;
+using SpotiWiFi.Domain.Streaming.Aggregates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace SpotiWiFi.Repository.Repository
 {
-    public class BandaRepository : RepositoryBase<Banda>
+    public class BandaRepository : CosmosDBContext
     {
         public SpotiWiFiContext Context { get; set; }
 
-        public BandaRepository(SpotiWiFiContext context) : base(context)
+        public BandaRepository(IConfiguration configuration) : base(configuration)
         {
-            Context = context;
+            this.SetContainer("banda");
         }
 
         public IEnumerable<Musica> GetMusicaByName(string name)
