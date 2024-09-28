@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SpotiWiFi.Application.Streaming.Dto;
+using SpotiWiFi.Application.Streaming.Storage;
 using SpotiWiFi.Domain.Streaming.Aggregates;
 using SpotiWiFi.Domain.Streaming.ValueObjects;
 using SpotiWiFi.Repository.Repository;
@@ -15,17 +16,23 @@ namespace SpotiWiFi.Application.Streaming
     {
         private BandaRepository BandaRepository { get; set; }
         private IMapper Mapper { get; set; }
+        private AzureStorageAccount AzureStorageAccount { get; set; }
 
 
-        public BandaService(BandaRepository bandaRepository, IMapper mapper)
+        public BandaService(BandaRepository bandaRepository, IMapper mapper, AzureStorageAccount azureStorageAccount)
         {
             BandaRepository = bandaRepository;
             Mapper = mapper;
+            AzureStorageAccount = azureStorageAccount;
         }
 
         public async Task<BandaDto> Criar(BandaDto dto)
         {
             Banda banda = this.Mapper.Map<Banda>(dto);
+
+            var urlBackdrop = await this.AzureStorageAccount.UploadImage(dto.Backdrop);
+
+            banda.Backdrop = urlBackdrop;
 
             await this.BandaRepository.SaveOrUpdate<Banda>(banda, banda.BandaKey);
 

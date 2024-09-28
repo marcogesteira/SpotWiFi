@@ -7,6 +7,7 @@ using SpotiWiFi.Application.Streaming;
 using IdentityServer4.AccessTokenValidation;
 using System.Runtime.CompilerServices;
 using Microsoft.OpenApi.Models;
+using SpotiWiFi.Application.Streaming.Storage;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -75,6 +76,7 @@ builder.Services.AddScoped<BandaRepository>();
 //Services
 builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<BandaService>();
+builder.Services.AddScoped<AzureStorageAccount>();
 
 
 var app = builder.Build();
