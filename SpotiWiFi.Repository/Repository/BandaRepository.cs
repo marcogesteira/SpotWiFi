@@ -18,10 +18,10 @@ namespace SpotiWiFi.Repository.Repository
             this.SetContainer("banda");
         }
 
-        public IEnumerable<Musica> GetMusicaByName(string name)
-        {
-            return this.Context.Musicas.Where(m => m.Nome.Contains(name)).ToList();
-        }
+        //public IEnumerable<Musica> GetMusicaByName(string name)
+        //{
+        //    return this.Context.Musicas.Where(m => m.Nome.Contains(name)).ToList();
+        //}
 
         public Album GetAlbumById(Guid id)
         {

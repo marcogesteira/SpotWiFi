@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotiWiFi.Application", "Sp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotiWiFi.Admin", "SpotiWiFi.Admin\SpotiWiFi.Admin.csproj", "{2435CC8F-7B78-4634-8A1A-E0DC6EF88EEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotiWiFi.STS", "SpotiWiFi.STS\SpotiWiFi.STS.csproj", "{20768F61-00F1-43C9-A6F7-F4686E72DA1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotiWiFi.STS", "SpotiWiFi.STS\SpotiWiFi.STS.csproj", "{20768F61-00F1-43C9-A6F7-F4686E72DA1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessaNotificacao", "ProcessaNotificacao\ProcessaNotificacao.csproj", "{9716FFFE-078B-4F4A-AF69-D2F2E7B776D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{20768F61-00F1-43C9-A6F7-F4686E72DA1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20768F61-00F1-43C9-A6F7-F4686E72DA1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20768F61-00F1-43C9-A6F7-F4686E72DA1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9716FFFE-078B-4F4A-AF69-D2F2E7B776D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9716FFFE-078B-4F4A-AF69-D2F2E7B776D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9716FFFE-078B-4F4A-AF69-D2F2E7B776D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9716FFFE-078B-4F4A-AF69-D2F2E7B776D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -78,6 +78,9 @@ builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<BandaService>();
 builder.Services.AddScoped<AzureStorageAccount>();
 
+builder.Services.AddScoped<AzureServiceBusService>();
+builder.Services.AddApplicationInsightsTelemetry();
+
 
 var app = builder.Build();
 

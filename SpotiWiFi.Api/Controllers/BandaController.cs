@@ -85,15 +85,15 @@ namespace SpotiWiFi.Api.Controllers
             return Ok(result);
         }
 
-        [HttpGet("musicas")]
-        public IActionResult BuscarMusicas(string nomeMusica)
-        {
-            var result = this._bandaService.BuscarMusica(nomeMusica);
+        //[HttpGet("musicas")]
+        //public IActionResult BuscarMusicas(string nomeMusica)
+        //{
+        //    var result = this._bandaService.BuscarMusica(nomeMusica);
 
-            if (result == null)
-                return NotFound();
+        //    if (result == null)
+        //        return NotFound();
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
     }
 }

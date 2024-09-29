@@ -20,12 +20,12 @@ namespace SpotiWiFi.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(UsuarioDto dto)
+        public async Task<IActionResult> Criar(UsuarioDto dto)
         {
             if (ModelState is { IsValid: false })
                 return BadRequest();
 
-            var result = this._usuarioService.Criar(dto);
+            var result = await this._usuarioService.Criar(dto);
 
             return Ok(result);
         }
@@ -41,12 +41,12 @@ namespace SpotiWiFi.Api.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest login)
+        public async Task<IActionResult> Login([FromBody] LoginRequest login)
         {
             if (ModelState.IsValid == false)
                 return BadRequest();
 
-            var result = this._usuarioService.Autenticar(login.Email, login.Senha);
+            var result = await this._usuarioService.Autenticar(login.Email, login.Senha);
 
             if (result == null)
                 return BadRequest(new
@@ -55,25 +55,25 @@ namespace SpotiWiFi.Api.Controllers
                 });
             return Ok(result);
         }
-        [HttpGet("playlist/{id}")]
-        public IActionResult ObterPlaylist(Guid id)
-        {
-            var result = this._usuarioService.ObterPlaylist(id);
+        //[HttpGet("playlist/{id}")]
+        //public IActionResult ObterPlaylist(Guid id)
+        //{
+        //    var result = this._usuarioService.ObterPlaylist(id);
 
-            if (result == null)
-                return NotFound();
+        //    if (result == null)
+        //        return NotFound();
 
-            return Ok(result);
-        }
-        [HttpPost("playlist")]
-        public IActionResult AdicionarMusicaNaPlaylist([FromBody] string nome, Guid idPlaylist)
-        {
-            if (ModelState is { IsValid: false })
-                return BadRequest();
+        //    return Ok(result);
+        //}
+        //[HttpPost("playlist")]
+        //public IActionResult AdicionarMusicaNaPlaylist([FromBody] string nome, Guid idPlaylist)
+        //{
+        //    if (ModelState is { IsValid: false })
+        //        return BadRequest();
 
-            var result = this._usuarioService.AdicionarMusicaNaPlaylist(nome, idPlaylist);
+        //    var result = this._usuarioService.AdicionarMusicaNaPlaylist(nome, idPlaylist);
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
     }
 }

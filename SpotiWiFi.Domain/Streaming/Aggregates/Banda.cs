@@ -23,7 +23,7 @@ namespace SpotiWiFi.Domain.Streaming.Aggregates
         public String Backdrop { get; set; }
         
         [JsonProperty("albums")]
-        public IList<Album> Albums { get; set; } = new List<Album>();
+        public virtual IList<Album> Albums { get; set; } = new List<Album>();
 
         [JsonProperty("bandaKey")]
         public String BandaKey = "banda-partition";

@@ -21,16 +21,19 @@ namespace SpotiWiFi.Application.Conta
         private UsuarioRepository UsuarioRepository { get; set; }
         private PlanoRepository PlanoRepository { get; set; }
         private BandaRepository BandaRepository { get; set; }
+        private AzureServiceBusService ServiceBusService { get; set; }
 
-        public UsuarioService(IMapper mapper, UsuarioRepository usuarioRepository, PlanoRepository planoRepository, BandaRepository bandaRepository)
+
+        public UsuarioService(IMapper mapper, UsuarioRepository usuarioRepository, PlanoRepository planoRepository, BandaRepository bandaRepository, AzureServiceBusService serviceBusService)
         {
             Mapper = mapper;
             UsuarioRepository = usuarioRepository;
             PlanoRepository = planoRepository;
             BandaRepository = bandaRepository;
+            ServiceBusService = serviceBusService;
         }
 
-        public UsuarioDto Criar(UsuarioDto dto)
+        public async Task<UsuarioDto> Criar(UsuarioDto dto)
         {
             if (this.UsuarioRepository.Exists(x => x.Email == dto.Email))
                 throw new Exception("Usuário já existente na base");
@@ -52,6 +55,16 @@ namespace SpotiWiFi.Application.Conta
 
             var result = this.Mapper.Map<UsuarioDto>(usuario);
 
+            //Notificar o usuário
+            Notificacao notificacao = new Notificacao()
+            {
+                Mensagem = $"Seja bem-vindo ao SpotiWiFi, {usuario.Nome}",
+                Nome = usuario.Nome,
+                IdUsuario = usuario.Id
+            };
+
+            await this.ServiceBusService.SendMessage(notificacao);
+
             return result;
         }
 
@@ -62,41 +75,52 @@ namespace SpotiWiFi.Application.Conta
             return result;
         }
 
-        public UsuarioDto Autenticar(string email, string senha)
+        public async Task<UsuarioDto> Autenticar(string email, string senha)
         {
             var usuario = this.UsuarioRepository.Find(x => x.Email == email && x.Senha == senha.HashSHA256()).FirstOrDefault();
             var result = this.Mapper.Map<UsuarioDto>(usuario);
+
+            //Notificar o usuário
+            Notificacao notificacao = new Notificacao()
+            {
+                Mensagem = $"Alerta: {usuario.Nome} acabou de fazer login às {DateTime.Now}",
+                Nome = usuario.Nome,
+                IdUsuario = usuario.Id
+            };
+
+            await this.ServiceBusService.SendMessage(notificacao);
+
             return result;
         }
 
-        public PlaylistDto ObterPlaylist(Guid id)
-        {
-            var playlist = this.UsuarioRepository.GetPlaylistById(id);
-            var result = this.PlaylistParaPlaylistDto(playlist);
-            return result;
+        //public PlaylistDto ObterPlaylist(Guid id)
+        //{
+        //    var playlist = this.UsuarioRepository.GetPlaylistById(id);
+        //    var result = this.PlaylistParaPlaylistDto(playlist);
+        //    return result;
 
-        }
+        //}
 
-        public PlaylistDto AdicionarMusicaNaPlaylist(string nomeMusica, Guid idPlaylist)
-        {
-            var musica = this.BandaRepository.GetMusicaByName(nomeMusica);
-            if (musica == null)
-                throw new Exception("Música não encontrada");
-            var favorita = musica.FirstOrDefault();
+        //public PlaylistDto AdicionarMusicaNaPlaylist(string nomeMusica, Guid idPlaylist)
+        //{
+        //    var musica = this.BandaRepository.GetMusicaByName(nomeMusica);
+        //    if (musica == null)
+        //        throw new Exception("Música não encontrada");
+        //    var favorita = musica.FirstOrDefault();
 
-            var playlist = this.UsuarioRepository.GetPlaylistById(idPlaylist);
-            if (playlist == null)
-                throw new Exception("Playlist não encontrada");
+        //    var playlist = this.UsuarioRepository.GetPlaylistById(idPlaylist);
+        //    if (playlist == null)
+        //        throw new Exception("Playlist não encontrada");
 
-            playlist.AdicionarMusica(favorita);
+        //    playlist.AdicionarMusica(favorita);
             
-            this.UsuarioRepository.UpdatePlaylist(playlist);
+        //    this.UsuarioRepository.UpdatePlaylist(playlist);
 
-            var result = this.PlaylistParaPlaylistDto(playlist);
+        //    var result = this.PlaylistParaPlaylistDto(playlist);
 
-            return result;
+        //    return result;
  
-        }
+        //}
 
         private PlaylistDto PlaylistParaPlaylistDto(Playlist playlist)
         {
